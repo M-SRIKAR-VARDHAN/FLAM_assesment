@@ -13,13 +13,13 @@ Given 1500 data points for t ∈ [6, 60] with parameter constraints:
 So in plain words what they gave was (x,y) points along a curve with 6<t<60 rightand we have to find out three unknows in the curve and plot this 
 ##  Final Solution
 ```latex
-\left(t\cos(0.523599) - e^{0.030000\left|t\right|}\sin(0.3t)\sin(0.523599) + 55.000000, 42 + t\sin(0.523599) + e^{0.030000\left|t\right|}\sin(0.3t)\cos(0.523599)\right)
+\left(t\cos(0.523598) - e^{0.030000\left|t\right|}\sin(0.3t)\sin(0.523598) + 55.000005, 42 + t\sin(0.523598) + e^{0.030000\left|t\right|}\sin(0.3t)\cos(0.523598)\right)
 ```
 
 **Optimized Parameters:**
-- **θ = 30.000000°** (0.523599 radians)
+- **θ = 30.000000°** ~ approximately (0.523598 radians)
 - **M = 0.030000**
-- **X = 55.000000**
+- **X = 55.000005**
 - **L1 Distance = 112.52**
 
 
