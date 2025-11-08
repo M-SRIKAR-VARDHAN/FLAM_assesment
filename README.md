@@ -1,6 +1,6 @@
 # Parametric Curve Fitting Using Differential Evolution
 
-## 📊 Problem Statement
+##  Problem Statement
 Finding unknown parameters (θ, M, X) in a parametric curve equation:
 - **x(t)** = t·cos(θ) - e^(M|t|)·sin(0.3t)·sin(θ) + X
 - **y(t)** = 42 + t·sin(θ) + e^(M|t|)·sin(0.3t)·cos(θ)
@@ -10,7 +10,8 @@ Given 1500 data points for t ∈ [6, 60] with parameter constraints:
 - -0.05 < M < 0.05  
 - 0 < X < 100
 
-## 🎯 Final Solution
+So in plain words what they gave was (x,y) points along a curve with 6<t<60 rightand we have to find out three unknows in the curve and plot this 
+##  Final Solution
 ```latex
 \left(t\cos(0.523599) - e^{0.030000\left|t\right|}\sin(0.3t)\sin(0.523599) + 55.000000, 42 + t\sin(0.523599) + e^{0.030000\left|t\right|}\sin(0.3t)\cos(0.523599)\right)
 ```
@@ -21,21 +22,27 @@ Given 1500 data points for t ∈ [6, 60] with parameter constraints:
 - **X = 55.000000**
 - **L1 Distance = 112.52**
 
-## 🚀 Solution Journey
 
-### 1. Initial Exploration & Challenge Recognition
 
-The journey began with analyzing the 1500 data points to understand the curve's behavior. The parametric equation presented unique challenges:
-- **Non-linear exponential growth** through the e^(M|t|) term
-- **Oscillatory behavior** from sin(0.3t)
-- **Rotational transformation** via θ
-- **Translation offset** through X
+##  Solution Journey
 
-Initial attempts using traditional optimization methods (scipy's minimize with 'L-BFGS-B') consistently got trapped in local minima, achieving L1 distances around 500-800. The complex interaction between parameters created a highly non-convex optimization landscape.
+### 1. Initial Exploration & Realizing This Was Hard
+
+My first step was to analyze the 1,500 data points to understand the graph's basic shape. It was immediately clear that the given math equation was going to be very challenging to fit.
+- **exponential growth** through the e^(M|t|) this term the curve shoots up extremely fast, not in a simple straight line.
+- **Oscillatory** from sin(0.3t) this term made the graph wiggle up and down like a wave
+- **Rotation** via θ parameter was responsible for spinning the entire graph.
+- **Offset** through X parameter was responsible for moving the graph's starting position.
+
+I first tried to solve this using a standard optimization tool (scipy.optimize.minimize). My error score (L1 distance) was stuck at a high 21,000. The core issue was that all these different parts (the wave, the spin, and the fast growth) made it a very difficult problem for a simple tool to solve.
+
+also here is visulaization for the data given in the csv file 
+
+![Data visualization](data_visualization.png)
 
 ### 2. Pivot to Global Optimization
 
-After recognizing the local minima problem, I pivoted to **Differential Evolution (DE)** - a population-based metaheuristic particularly effective for:
+After recognizing the local minima problem, I used this approach **Differential Evolution (DE)** - particularly effective for:
 - Non-convex landscapes
 - Multiple local minima
 - Parameter interdependencies
@@ -44,7 +51,6 @@ After recognizing the local minima problem, I pivoted to **Differential Evolutio
 
 #### Phase 1: Multi-Start Global Search
 ```python
-# Configuration
 N_STARTS = 3      # Multiple independent runs
 POP_SIZE = 25     # Population size per generation  
 MAX_ITER = 800    # Maximum iterations
@@ -89,7 +95,7 @@ The optimization showed excellent convergence:
 
 ### 5. Solution Validation
 
-![Fit Comparison](results/fit_comparison.png)
+![Fit Comparison](results/fit_convergence.png)
 
 The final fitted curve demonstrates:
 - **Accurate shape matching** across the entire parameter range
@@ -97,7 +103,16 @@ The final fitted curve demonstrates:
 - **Correct amplitude and phase** alignment
 - **Minimal residuals** distributed uniformly
 
-## 📁 Repository Structure
+### 6. Desmos
+we compared them in desmos I copied the csv file into table and the parametric answer at end to see if the fit, and yes they fit perfectly together
+
+this the line alone
+![Curve](results/answer.png)
+
+ans this is the fitted upon data
+![Fit_Curve](results/fitted.png)
+
+##  Repository Structure
 ```
 FLAM_assessment/
 ├── main.py                 # Core implementation with DE optimization
@@ -112,7 +127,7 @@ FLAM_assessment/
 └── README.md              # This file
 ```
 
-## 🔧 Technical Implementation
+##  Technical Implementation
 
 ### Key Libraries
 - **NumPy**: Numerical computations
@@ -134,7 +149,7 @@ N_STARTS = 3               # Multi-start runs
 3. **Regularization**: Prevents extreme parameter values
 4. **Hybrid approach**: Global search (DE) + Local refinement (Nelder-Mead)
 
-## 📈 Results Analysis
+##  Results Analysis
 
 ### Residuals Distribution
 ![Residuals](results/residuals_vs_t.png)
@@ -150,31 +165,8 @@ The residuals show:
 - **Improvement**: 88.5% reduction in error
 - **Computation time**: ~45 seconds (3 DE runs + local refinement)
 
-## ✅ Assignment Criteria Compliance
 
-### 1. L1 Distance Metric (100 points)
-✓ **Achieved L1 = 112.52** using proper uniform sampling between predicted and actual curves
-- Correctly implemented L1 norm as sum of absolute differences
-- Handled x-coordinate alignment through interpolation
-- Validated against all 1500 data points
-
-### 2. Process Explanation (80 points)
-✓ **Complete documentation** of:
-- Problem analysis and initial challenges
-- Evolution from local to global optimization
-- Multi-phase solution strategy
-- Convergence analysis with visualizations
-- Parameter regularization reasoning
-
-### 3. Code Submission (50 points)
-✓ **Well-structured repository** with:
-- Clean, commented Python code
-- Modular objective function
-- Reproducible results (fixed random seed)
-- Comprehensive result artifacts
-- Professional visualization outputs
-
-## 🎓 Key Learnings
+##  Key Learnings
 
 1. **Local minima challenges**: Traditional gradient-based methods insufficient for complex non-convex problems
 2. **Global optimization power**: Differential Evolution excels at exploring complex parameter spaces
@@ -182,7 +174,7 @@ The residuals show:
 4. **Regularization importance**: Soft constraints guide optimization toward stable solutions
 5. **Visualization value**: Multiple perspectives (convergence, residuals, comparisons) provide comprehensive validation
 
-## 🚦 Running the Code
+##  Running the Code
 ```bash
 # Install dependencies
 pip install numpy scipy pandas matplotlib
@@ -193,7 +185,7 @@ python main.py
 # Results will be saved in ./results/ directory
 ```
 
-## 📝 Submission Format
+## Submission
 
 As per requirements, the final parametric equation in LaTeX format:
 ```
@@ -203,4 +195,4 @@ As per requirements, the final parametric equation in LaTeX format:
 This solution successfully fits the given data points with minimal L1 distance while respecting all parameter constraints.
 
 ---
-**Note**: The solution demonstrates robust optimization methodology, combining theoretical understanding with practical implementation to solve a challenging curve-fitting problem in parametric space.
+
