@@ -26,7 +26,7 @@ So in plain words what they gave was (x,y) points along a curve with 6<t<60 righ
 
 ##  Solution Journey
 
-### 1. Initial Exploration & Realizing This Was Hard
+### 1. Initial Exploration & Realizing This Was Tricky
 
 My first step was to analyze the 1,500 data points to understand the graph's basic shape. It was immediately clear that the given math equation was going to be very challenging to fit.
 - **exponential growth** through the e^(M|t|) this term the curve shoots up extremely fast, not in a simple straight line.
