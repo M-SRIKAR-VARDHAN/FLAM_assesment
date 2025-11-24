@@ -38,7 +38,7 @@ I first tried to solve this using a standard optimization tool (scipy.optimize.m
 
 also here is visulaization for the data given in the csv file 
 
-![Data visualization](data_visualization.png)
+![Data visualization](sorting_check.png)
 
 ### 2. Pivot to Global Optimization
 
